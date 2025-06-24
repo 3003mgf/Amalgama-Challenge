@@ -1,0 +1,72 @@
+-------------------------------------------------
+COPY AND PASTE THIS BLOCK OF TEXT
+TO RUN A SIMULATION ON THE 'main.js' FILE.
+
+• CONVERT THE FILE TO JS FOR BETTER LEGIBILITY
+-------------------------------------------------
+
+
+
+// Display initial status of all armies.
+console.log("\n--- Initial Army Rosters ---");
+allArmies.forEach(army => {
+  console.log(`\nArmy: ${army.armyName} (${army.civilization})`);
+  console.log(`  Gold: ${army.getGold()}`);
+  console.log(`  Units: ${army.getUnits().length} (Total Strength: ${army.getTotalStrength()})`);
+  // army.getUnits().forEach(unit => console.log(`    - ${unit.type} (Strength: ${unit.getStrength()}, Age: ${unit.getYearsOfLife()})`));
+});
+
+console.log("\n--- Engaging in Training and Transformations ---");
+
+
+
+
+// Example 1: Train a Pikeman in The Iron Lotus army.
+const ironLotusPikeman = chineseArmyAlpha.getUnits().find(unit => unit.type === "Pikeman");
+if (ironLotusPikeman) {
+  console.log(`\n${chineseArmyAlpha.armyName}: Training a Pikeman...`);
+  chineseArmyAlpha.trainUnit(ironLotusPikeman);
+  chineseArmyAlpha.trainUnit(ironLotusPikeman); // Train again to see more effect
+}
+
+
+
+
+// Example 2: Transform an Archer in Jade Emperor's Guard.
+// First, train the archer a few times to ensure training points transfer.
+const imperialArcher = chineseArmyBeta.getUnits().find(unit => unit.type === "Archer");
+if (imperialArcher) {
+  console.log(`\n${chineseArmyBeta.armyName}: Preparing an Archer for transformation...`);
+  chineseArmyBeta.trainUnit(imperialArcher);
+  imperialArcher.setStrength(imperialArcher.getStrength() + 50); // Simulating significant training for demonstration
+  console.log(`Archer current strength (after custom training): ${imperialArcher.getStrength()}`);
+
+  console.log(`Attempting to transform this Archer into a Knight...`);
+  chineseArmyBeta.transformUnit(imperialArcher);
+}
+
+
+
+// Example 3: Battles
+
+console.log("\n--- Commencing Battles ---");
+
+// Battle 1: The Iron Lotus vs. Norman Conquerors
+chineseArmyAlpha.attack(englishArmyBeta);
+
+// Battle 2: Saxon Shieldwall vs. Basilisk Sentinels (likely a clear win for Byzantines due to Knight count)
+englishArmyAlpha.attack(bizantineArmyAlpha);
+
+// Battle 3: Jade Emperor's Guard vs. Golden Gate Defenders (could be a closer fight or tie depending on prior transformations)
+chineseArmyBeta.attack(bizantineArmyBeta);
+
+
+// Display final status after all interactions.
+console.log("\n--- Final Army States After All Engagements ---");
+
+allArmies.forEach(army => {
+  console.log(`\nArmy: ${army.armyName} (${army.civilization})`);
+  console.log(`  Gold: ${army.getGold()}`);
+  console.log(`  Units: ${army.getUnits().length} (Total Strength: ${army.getTotalStrength()})`);
+  console.log(`  Battle History:\n${JSON.stringify(army.getBattleHistory(), null, 2)}`);
+});
